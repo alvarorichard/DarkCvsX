@@ -61,3 +61,4 @@ class GitRepository (object):
             vers = int(self.conf.get("core", "repositoryformatversion"))
             if vers != 0:
                 raise Exception("Unsupported repositoryformatversion %s" % vers)
+            #hello
