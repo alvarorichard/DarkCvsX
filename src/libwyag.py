@@ -141,3 +141,5 @@ def repo_default_config():
     ret.set("core", "bare", "false")
 
     return ret
+
+argsp = argsubparsers.add_parser("init", help="Initialize a new, empty repository.")
