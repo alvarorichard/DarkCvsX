@@ -1,4 +1,3 @@
-<h1>DarkCvsX</h1>
 
 <p align="center">
   <img src="https://i.imgur.com/wkbyFfC.png" alt="DarkCvsX Screenshot">
