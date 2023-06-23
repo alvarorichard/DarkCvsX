@@ -4,7 +4,10 @@
 </p>
 
 
-DarkCvsX is a simple Git repository implementation written in Python. It provides basic functionality for initializing a repository, adding files, committing changes, and reading Git objects. The project aims to serve as a starting point for understanding the inner workings of Git.
+# DarkCvsX is a simple Git repository implementation 
+
+
+written in Python. It provides basic functionality for initializing a repository, adding files, committing changes, and reading Git objects. The project aims to serve as a starting point for understanding the inner workings of Git.
 Prerequisites
 
     Python 3.x
