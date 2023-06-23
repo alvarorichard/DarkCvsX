@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://i.imgur.com/wkbyFfC.png" alt="DarkCvsX Screenshot">
+  <img src="https://i.imgur.com/yLNJn1d.png" alt="DarkCvsX Screenshot">
 </p>
 
 
