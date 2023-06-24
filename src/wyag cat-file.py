@@ -184,4 +184,4 @@ def log_graphviz(repo, sha, seen):
         print ("c_{0} -> c_{1};".format(sha, p))
         log_graphviz(repo, p, seen)
 
-#teste commite nova maquina 
+#teste commite nova maquina ee 
