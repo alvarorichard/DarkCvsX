@@ -1,3 +1,16 @@
+import libwyag
+
+import argparse 
+import collections
+import configparser
+import hashlib
+import os
+import re
+import string
+import struct
+import sys
+import zlib
+
 
 
 argsp = argsubparsers.add_parser("cat-file",
