@@ -734,6 +734,83 @@ def cmd_rev_parse(args):
 
     print (object_find(repo, args.name, fmt, follow=True))
 
+class GitIndexEntry(object):
+    def __init__(self, ctime=None, mtime=None, dev=None, ino=None,
+                 mode_type=None, mode_perms=None, uid=None, gid=None,
+                 fsize=None, object_hash=None, flag_assume_valid=None,
+                 flag_extended=None, flag_stage=None,
+                 flag_name_length=None, name=None):
+        """O último horário em que os metadados de um arquivo foram modificados. Isso é uma tupla (segundos, nanossegundos)"""
+        self.ctime = ctime
+        """O último horário em que os dados de um arquivo foram modificados. Isso é uma tupla (segundos, nanossegundos)"""
+        self.mtime = mtime
+        """O ID do dispositivo que contém este arquivo"""
+        self.dev = dev
+        """O número do inode do arquivo"""
+        self.ino = ino
+        """O tipo de objeto, seja b1000 (regular), b1010 (symlink) ou b1110 (gitlink)."""
+        self.mode_type = mode_type
+        """As permissões do objeto, um número inteiro."""
+        self.mode_perms = mode_perms
+        """ID do usuário proprietário"""
+        self.uid = uid
+        """ID do grupo proprietário (de acordo com stat 2, não é suportado)"""
+        self.gid = gid
+        """Tamanho deste objeto, em bytes"""
+        self.fsize = fsize
+        """O hash do objeto como uma sequência hexadecimal"""
+        self.object_hash = object_hash
+        self.flag_assume_valid = flag_assume_valid
+        self.flag_extended = flag_extended
+        self.flag_stage = flag_stage
+        """Comprimento do nome se for < 0xFFF (sim, três Fs), -1 caso contrário"""
+        self.flag_name_length = flag_name_length
+        self.name = name
+
+class GitIndex (object):
+    signature = None
+    version = None
+    entries = []
+    # ext = None
+    # sha = None
+
+    def __init__(self, file):
+        raw = None
+        with open(file, 'rb') as f:
+            raw = f.read()
+
+        header = raw[:12]
+        self.signature = header[:4]
+        self.version = hex(int.from_bytes(header[4:8], "big"))
+        nindex = int.from_bytes(header[8:12], "big")
+
+        self.entries = list()
+
+        content = raw[12:]
+        idx = 0
+        for i in range(0, nindex):
+            ctime = content[idx: idx+8]
+            mtime = content[idx+8: idx+16]
+            dev = content[idx+16: idx+20]
+            ino = content[idx+20: idx+24]
+            mode = content[idx+24: idx+28] # TODO
+            uid = content[idx+28: idx+32]
+            gid = content[idx+32: idx+36]
+            fsize = content[idx+36: idx+40]
+            object_hash = content[idx+40: idx+60]
+            flag = content[idx+60: idx+62] # TODO
+            null_idx = content.find(b'\x00', idx+62) # TODO
+            name = content[idx+62: null_idx]
+
+            idx = null_idx + 1
+            idx = 8 * ceil(idx / 8)
+
+            self.entries.append(
+                GitIndexEntry(ctime=ctime, mtime=mtime, dev=dev, ino=ino, mode_type=mode, uid=uid, gid=gid, fsize=fsize, object_hash=object_hash, name=name))
+
+          
+
+
 
 
 
