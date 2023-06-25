@@ -808,7 +808,12 @@ class GitIndex (object):
             self.entries.append(
                 GitIndexEntry(ctime=ctime, mtime=mtime, dev=dev, ino=ino, mode_type=mode, uid=uid, gid=gid, fsize=fsize, object_hash=object_hash, name=name))
 
-          
+argsp = argsubparsers.add_parser("ls-files", help = "List all the stage files")
+
+def cmd_ls_files(args):
+  repo = repo_find()
+  for e in GitIndex(os.path.join(repo.gitdir, 'index')).entries:
+    print("{0}".format(e.name.decode("utf8")))        
 
 
 
